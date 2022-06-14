@@ -21,8 +21,9 @@ namespace Biblioteca.Controllers
         {
             using(BibliotecaContext bc = new BibliotecaContext())
             {
-                
-
+                verificarAdmin(bc);
+               
+                senha = Criptografia.txtcripto(senha);
 
                 IQueryable<Usuario> UsuarioEncontrado = bc.Usuarios.Where(u => u.Login == login && u.Senha== senha);
                 List<Usuario> ListaUsuarioEncontrado = UsuarioEncontrado.ToList();
@@ -40,6 +41,7 @@ namespace Biblioteca.Controllers
                 }
             }
         }
+        //ADMIN
         public static void verificarAdmin(BibliotecaContext bc)
         {
           
@@ -50,7 +52,7 @@ namespace Biblioteca.Controllers
                    Usuario admin = new Usuario();
                    admin.Nome = "Administrador";
                    admin.Login = "admin";
-                   //admin.Senha =
+                   admin.Senha = Criptografia.txtcripto("123");
                    admin.Tipo = Usuario.ADMIN;
 
                    bc.Usuarios.Add(admin);
@@ -65,5 +67,7 @@ namespace Biblioteca.Controllers
                 controller.Request.HttpContext.Response.Redirect("/Usuarios/NeedAdmin");
             }
         }
+       
     }
+
 }
