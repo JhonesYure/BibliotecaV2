@@ -1,0 +1,30 @@
+@model Usuario
+@using Microsoft.AspNetCore.Http;
+
+@{
+    ViewData["title"] = "Cadastro";
+}
+<h1>@ViewData["title"]</h1>
+
+<p>@ViewData["mensagem"]</p>
+
+<form method="post" asp-action="cadastro">
+    <p>
+        <label asp-for="Nome">Nome: </label>
+        <input asp-for="Nome" required>
+    </p>
+
+    <p>
+        <label asp-for="Login">Login: </label>
+        <input asp-for="Login" required>
+    </p>
+
+    <p>
+        <label asp-for="Senha">Senha: </label>
+        <input asp-for="Senha" type="password" required>
+    </p>
+
+    <p>
+        <input type="submit" value="Cadastrar">
+    </p>
+</form>
