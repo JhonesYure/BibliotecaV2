@@ -54,6 +54,24 @@ namespace Biblioteca.Models
 
                     bc.SaveChanges();
                 }
-            }    
+            }   
+            //BUSCAR ID
+            public Usuario BuscarId(int id)
+            {
+                using (BibliotecaContext bc = new BibliotecaContext())
+                {
+                    return bc.Usuarios.Find(id);
+                }
+            } 
+
+            public Usuario GetPostDetail(int id)
+            {
+                using (var context = new BibliotecaContext())
+                {
+                    Usuario registro = context.Usuarios.Where(p => p.ID == id).SingleOrDefault();
+
+                    return registro;
+                }
+            }
     }
 }

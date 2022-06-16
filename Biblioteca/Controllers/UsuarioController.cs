@@ -20,7 +20,7 @@ namespace Biblioteca.Controllers
         [HttpPost]
         public IActionResult Cadastro(Usuario novoUsuario)
         {
-            //novoUsuario.Senha
+           
             UsuarioService us = new UsuarioService();
             us.Inserir(novoUsuario);
             ViewData["mensagem"] = "Cadastro realizado!";
@@ -28,18 +28,27 @@ namespace Biblioteca.Controllers
            return View();
         }
         //LISTA
-        public IActionResult Lista()
+        public IActionResult Listagem()
         {
+            
+            Autenticacao.verificarUsuarioAdmin(this);
+            
             return View(new UsuarioService().Listar());
         }
         //EDITAR
         public IActionResult Editar(int id)
         {
+            Autenticacao.CheckLogin(this);
+            Autenticacao.verificarUsuarioAdmin(this);
+            
             return View();
         }
         [HttpPost]
         public IActionResult Editar(Usuario usuario)
         {
+            Autenticacao.CheckLogin(this);
+            Autenticacao.verificarUsuarioAdmin(this);
+
             UsuarioService us = new UsuarioService();
             us.EditarUsuario(usuario);
             return RedirectToAction("Lista", "Usuario");
@@ -47,11 +56,17 @@ namespace Biblioteca.Controllers
         //EXCLUIR
         public IActionResult Excluir(int id)
         {
+            Autenticacao.CheckLogin(this);
+            Autenticacao.verificarUsuarioAdmin(this);
+            
             return View(new UsuarioService().Listar(id));
         }
         [HttpPost]
         public IActionResult Excluir(string decisao, int id)
         {
+            Autenticacao.CheckLogin(this);
+            Autenticacao.verificarUsuarioAdmin(this);
+            
             if (decisao == "EXCLUIR")
             {
                 ViewData["mensagem"] = "Exclusão do usuário"+ new UsuarioService().Listar(id).Nome+ "Realizada com sucesso";
@@ -65,8 +80,15 @@ namespace Biblioteca.Controllers
             }
         }
         //CADASTRO
-        public IActionResult CadastroRealizado()
+        /*public IActionResult CadastroRealizado()
         {
+            return View();
+        }*/
+         public IActionResult NeedAdmin()
+        {
+            Autenticacao.CheckLogin(this);
+            
+            
             return View();
         }
          //LOGOUT
