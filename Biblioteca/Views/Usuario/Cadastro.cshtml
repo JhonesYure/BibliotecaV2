@@ -23,9 +23,11 @@
         <label asp-for="Senha">Senha: </label>
         <input asp-for="Senha" type="password" required>
     </p>
-    <p>
-        <label asp-for="Tipo" value="@Usuario.PADRAO"></label>
-    </p>
+   <p>
+    <select name="tipo" required>
+        <option value="@Usuario.PADRAO" >Padrão</option>
+    </select>
+   </p>
 
     <p>
         <input type="submit" value="Cadastrar">
