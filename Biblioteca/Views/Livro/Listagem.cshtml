@@ -77,16 +77,13 @@
     </table>
      
 
-   @for(int i = 1; i <=(int)ViewData["quantpaginas"];i++)
-    { 
+   @for(int i = 1; i <=(int)ViewData["quantpaginas"];i++){ // paginação cria os links para as pginas 
         <a href="/Livro/Listagem?p=@i" >@i,</a>
 
     }
-    }else
-    {
-     <strong class="text-center">Nenhum registro encontrado</strong>
-    }
-
+    }else{
+     <strong >Nenhum registro encontrado</strong>
+}
 </div>
 </div>
 

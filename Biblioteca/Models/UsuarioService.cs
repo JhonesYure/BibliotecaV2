@@ -39,18 +39,19 @@ namespace Biblioteca.Models
                     Usuario u = bc.Usuarios.Find(editaUsuario.ID);
                     u.Nome = editaUsuario.Nome;
                     u.Login = editaUsuario.Login;
-                    u.Senha = editaUsuario.Senha;
+                    u.Senha = Criptografia.txtcripto(editaUsuario.Senha);
                     u.Tipo = editaUsuario.Tipo;
 
                     bc.SaveChanges();
                 }
             }
             //EXCLUIR
-            public void ExcluirUsuario(int id)
+            public void Excluir(int id)
             {
                 using(BibliotecaContext bc = new BibliotecaContext())
                 {
-                    bc.Usuarios.Remove(bc.Usuarios.Find(id));
+                   Usuario UsuarioEncontrado = bc.Usuarios.Find(id);
+                   bc.Usuarios.Remove(UsuarioEncontrado);
 
                     bc.SaveChanges();
                 }

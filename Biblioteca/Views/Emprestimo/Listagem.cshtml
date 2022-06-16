@@ -31,10 +31,13 @@
                 <th>Data Devolução</th>
                 <th>Livro</th>
                 <th>Autor</th>
-                <th></th>
+                <th>Devolvido</th>
                 </tr>
             </thead>
             <tbody>
+
+            @if(Model.Count > 0)
+            {    
                 @foreach(Emprestimo e in Model)
                 {
                 <tr>
@@ -44,9 +47,15 @@
                     <td>@e.DataDevolucao.ToString("dd/MM/yyyy")</td>
                     <td>@e.Livro.Titulo</td>
                     <td>@e.Livro.Autor</td>
+                   
+
                     <td><a href="/Emprestimo/Edicao/@e.Id">Editar</a></td>
                 </tr>
                 }
+            }   else 
+            {
+                <strong>Nenhum registro encontrado</strong>
+            } 
             </tbody>
         </table>
     </div>

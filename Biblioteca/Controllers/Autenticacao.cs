@@ -62,9 +62,9 @@ namespace Biblioteca.Controllers
         }
         public static void verificarUsuarioAdmin(Controller controller)
         {
-            if(controller.HttpContext.Session.GetInt32("tipo")== Usuario.ADMIN)
+            if(!(controller.HttpContext.Session.GetInt32("tipo")== Usuario.ADMIN))
             {
-                controller.Request.HttpContext.Response.Redirect("/Usuarios/NeedAdmin");
+                controller.Request.HttpContext.Response.Redirect("/Usuario/NeedAdmin");
             }
         }
        

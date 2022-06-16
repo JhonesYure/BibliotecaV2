@@ -1,6 +1,7 @@
 @model Usuario
 @{
     ViewData["Title"] = "Cadastro de Usuarios";
+    
 }
 
 <h1 class="row justify-content-md-center">Cadastro de Usuarios</h1>
@@ -28,6 +29,8 @@
                 <option value="@Usuario.PADRAO">Padrão</option>
                 </select>
             </div>
+           
+           @ViewData["mensagem"]
            
         </fieldset>
         <input type="submit" value="Cadastrar">

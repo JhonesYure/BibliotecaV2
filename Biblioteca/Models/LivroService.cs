@@ -1,3 +1,7 @@
+using System.IO.Enumeration;
+using System.ComponentModel;
+using System.Reflection.Metadata;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
@@ -28,7 +32,7 @@ namespace Biblioteca.Models
             }
         }
 
-        public ICollection<Livro> ListarTodos(FiltrosLivros filtro = null)
+        public ICollection<Livro> ListarTodos(FiltrosLivros filtro = null) // esse metodo tambem é usado por emprestimos de livros, portanto não pode ser excluido
         {
             using(BibliotecaContext bc = new BibliotecaContext())
             {
@@ -50,6 +54,7 @@ namespace Biblioteca.Models
                         default:
                             query = bc.Livros;
                         break;
+                       
                     }
                 }
                 else
@@ -62,6 +67,7 @@ namespace Biblioteca.Models
                 return query.OrderBy(l => l.Titulo).ToList();
             }
         }
+        
 
         public ICollection<Livro> ListarDisponiveis()
         {
@@ -74,13 +80,44 @@ namespace Biblioteca.Models
                     .Where(l =>  !(bc.Emprestimos.Where(e => e.Devolvido == false).Select(e => e.LivroId).Contains(l.Id)) )
                     .ToList();
             }
+
+            
         }
+         public ICollection<Livro> GetLivros(string q, string ordem, int page, int size) // esse metodo é usado somente por livros e é fundamental para a paginaçao
+            {
+            using (var context = new BibliotecaContext())
+            {
+                int pular = (page - 1)* size;
+
+                IQueryable<Livro> consulta = context.Livros.Where(l=>l.Titulo.Contains(q,StringComparison.OrdinalIgnoreCase));
+                
+                
+                if(ordem == "t"){
+                    consulta = consulta.OrderBy(l=>l.Titulo);
+                }else{
+                    if(ordem == "a"){
+                    consulta = consulta.OrderBy(l=>l.Autor);
+                    }
+                }
+                
+
+                return consulta.Skip(pular).Take(size).ToList();
+            
+            }
+            
+            }
+           public int CountRegistro(){
+                using(var context = new BibliotecaContext()){
+                    return context.Livros.Count();
+                }
+            }
 
         public Livro ObterPorId(int id)
         {
             using(BibliotecaContext bc = new BibliotecaContext())
             {
                 return bc.Livros.Find(id);
+                  
             }
         }
     }
