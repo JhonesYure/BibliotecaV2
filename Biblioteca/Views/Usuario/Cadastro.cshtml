@@ -1,35 +1,35 @@
 @model Usuario
-@using Microsoft.AspNetCore.Http;
-
 @{
-    ViewData["title"] = "Cadastro";
+    ViewData["Title"] = "Cadastro de Usuarios";
 }
-<h1>@ViewData["title"]</h1>
 
-<p>@ViewData["mensagem"]</p>
-
-<form method="post" asp-action="cadastro">
-    <p>
-        <label asp-for="Nome">Nome: </label>
-        <input asp-for="Nome" required>
-    </p>
-
-    <p>
-        <label asp-for="Login">Login: </label>
-        <input asp-for="Login" required>
-    </p>
-
-    <p>
-        <label asp-for="Senha">Senha: </label>
-        <input asp-for="Senha" type="password" required>
-    </p>
-   <p>
-    <select name="tipo" required>
-        <option value="@Usuario.PADRAO" >Padrão</option>
-    </select>
-   </p>
-
-    <p>
+<h1 class="row justify-content-md-center">Cadastro de Usuarios</h1>
+<div class="row justify-content-md-center">
+    <form asp-action="Cadastro" method="POST" class="col-md-4">
+        <fieldset>
+            <legend>Usuario</legend>
+            <div class="form-group">
+                <label asp-for="Nome">Nome</label>
+                <input asp-for="Nome">
+            </div>
+            <div class="form-group">
+                <label asp-for="Login">Login</label>
+                <input asp-for="Login" >
+            </div>
+      
+            
+            <div class="form-group">
+                <label asp-for="Senha">Senha</label>
+                <input type="password" asp-for="Senha" >
+            </div>
+            
+            <div class="form-group">
+                <select name="tipo" >
+                <option value="@Usuario.PADRAO">Padrão</option>
+                </select>
+            </div>
+           
+        </fieldset>
         <input type="submit" value="Cadastrar">
-    </p>
-</form>
+    </form>
+</div>
